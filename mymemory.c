@@ -105,3 +105,20 @@ void mymemory_free(mymemory_t *mymemory, void *ptr){
     
 
 }
+
+void mymemory_display(mymemory_t *memory){
+
+     //os nodos de controle
+   // allocation_t *prev = NULL;
+    allocation_t *current = memory->head;
+
+
+    while(current){
+
+        printf("Inicio bloco de memória em relação ao start: %p \n", current->start  );
+        printf("Tamanho do bloco de memória: %ld \n", current->size);
+        current = current->next;
+    }
+
+
+}

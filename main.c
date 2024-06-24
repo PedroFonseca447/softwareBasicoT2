@@ -22,7 +22,11 @@ int main()
 
     char *str1 = mymemory_alloc(m, sizeof(char)*16);
 
-   // mymemory_release(m);
+    //mymemory_release(m);
+
+    mymemory_display(m);
+
+    mymemory_free(m, str);
 
     return 0;
 }
