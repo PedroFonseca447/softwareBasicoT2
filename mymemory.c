@@ -5,7 +5,7 @@
 
 mymemory_t* mymemory_init(size_t size){
     mymemory_t *memory = (mymemory_t *) malloc(sizeof(mymemory_t));
-
+   
     //baseado no size passado por parametro passa o tamanho de pool
     //inicializa o valor da lista
     //faz a alocação
@@ -48,7 +48,7 @@ void* mymemory_alloc(mymemory_t *memory, size_t size ){
 
     //Node aux = new Node(size);
     //node aux new node
-    allocation_t aux = (allocation_t) malloc(sizeof(allocation_t));
+    allocation_t *aux = (allocation_t*) malloc(sizeof(allocation_t));
     //(size)
     aux-> size = size;
 
@@ -68,7 +68,7 @@ void* mymemory_alloc(mymemory_t *memory, size_t size ){
         aux-> next= current;
 
         return aux->start;//retorna o ponteiro para onde o aux começa na memoria
-
+        
 }
 
 
@@ -90,7 +90,7 @@ void mymemory_free(mymemory_t *mymemory, void *ptr){
                 //no meio da memoria
                 //current->size = 0;
                 prev->next = current->next;
-
+                
             }else{
                 //no inicio da memoria
                 mymemory->head = current->next;
@@ -101,11 +101,8 @@ void mymemory_free(mymemory_t *mymemory, void *ptr){
 
         prev=current;
         current= current->next;
-void mymemory_stats(mymemory_t *memory) {
-    if (!memory) {
-        return;
     }
-
+    
 
 }
 
@@ -128,58 +125,50 @@ void mymemory_display(mymemory_t *memory){
 
 
 
-void mymemory_stats(mymemory_t *memory) {
-    if (!memory) {
-        return;
-    }
+void mymemory_stats(mymemory_t *memory){
+     allocation_t *current = memory->head;
 
-    allocation_t *current = memory->head;
 
-    int contador_alocacoes = 0;
-    int memoria_total_alocada = 0;
-    int memoria_total_livre = memory->total_size;
-    int maior_bloco_livre = 0;
-    int numero_de_fragmentacoes = 0;
+    int contador_alocacoes= 0;
+    int memoria_total_alocada= 0;
+    int memoria_total_livre= memory->total_size;
+    int maior_bloco_livre= 0;
+    int numero_de_fragmentacoes=0;
+
 
     void *aux = memory->pool;
 
-    while (current) {
+     while(current){
+
         contador_alocacoes++;
         memoria_total_alocada += current->size;
         memoria_total_livre -= current->size;
 
-        // Calcula o tamanho do bloco livre entre alocações
-        int bloco_livre = (char*)current->start - (char*)aux;
+       int  bloco_livre = (char*) current->start - (char*) aux;
 
-        if (bloco_livre > 0) {
+        if(maior_bloco_livre > 0){
             numero_de_fragmentacoes++;
 
-            if (bloco_livre > maior_bloco_livre) {
+            if(bloco_livre > maior_bloco_livre){
+
                 maior_bloco_livre = bloco_livre;
+
             }
+
         }
 
-        aux = (char*)current->start + current->size;
-        current = current->next;
-    }
 
-    // Verifica o bloco livre após a última alocação até o final do pool
-    int bloco_livre_final = (char*)memory->pool + memory->total_size - (char*)aux;
-    if (bloco_livre_final > 0) {
-        numero_de_fragmentacoes++;
+         current = current->next;
+     }
 
-        if (bloco_livre_final > maior_bloco_livre) {
-            maior_bloco_livre = bloco_livre_final;
-        }
-    }
+     printf("contagem de nodos: %d \n", contador_alocacoes);
+     printf("memória alocada: %d \n", memoria_total_alocada);
+     printf("memoria total livre: %d \n", memoria_total_livre);
+     printf("tamanho do maior bloco livre %d \n", maior_bloco_livre);
+     printf("numero de fragmentacoes: %d \n", numero_de_fragmentacoes);
 
-    printf("Número total de alocações: %d\n", contador_alocacoes);
-    printf("Memória total alocada: %d bytes\n", memoria_total_alocada);
-    printf("Memória total livre: %d bytes\n", memoria_total_livre);
-    printf("Tamanho do maior bloco contíguo de memória livre: %d bytes\n", maior_bloco_livre);
-    printf("Número de fragmentações de memória livre: %d\n", numero_de_fragmentacoes);
+    
 }
-
 
 
 void mymemory_release(mymemory_t *memory){
