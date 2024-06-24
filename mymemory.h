@@ -24,6 +24,8 @@ void mymemory_free(mymemory_t *mymemory, void *ptr);
 
 void mymemory_display(mymemory_t *memory);
 
+void mymemory_stats(mymemory_t *memory);
+
 void mymemory_release(mymemory_t *memory);
 
 #endif
