@@ -24,11 +24,11 @@ int main()
 
     //memory_cleanup(m);
 
-    mymemory_display(m);
+    //mymemory_display(m);
 
-    mymemory_release(m);
+    //mymemory_release(m);
 
-    mymemory_display(m);
+    mymemory_stats(m);
 
    // mymemory_free(m, str);
 
