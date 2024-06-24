@@ -33,6 +33,19 @@ void* mymemory_alloc(mymemory_t *memory, size_t size ){
     allocation_t *prev = NULL;
     allocation_t *current = memory->head;
 
+
+    //para percorrer a memória usando o first fit como guia para alocar
+
+    while(current){
+            //procura o espaço na lista
+        if((char*)current->start- (char*)memory->pool >= size){
+            break;
+        }
+
+        prev = current;
+        current = current->next;
+    }
+
     //Node aux = new Node(size);
     //node aux new node
     allocation_t *aux = (allocation_t*) malloc(sizeof(allocation_t));
@@ -45,7 +58,7 @@ void* mymemory_alloc(mymemory_t *memory, size_t size ){
         prev->next = aux;// vincula na lista
         aux->start = (char*) prev->start + prev->size;
     }
-    else{
+    else{ 
         //insere no inicio
         aux-> start = memory->pool;
         //coloca o aux como o novo head
@@ -54,6 +67,41 @@ void* mymemory_alloc(mymemory_t *memory, size_t size ){
 
         aux-> next= current;
 
-        return aux->start;//sua relação ao start
+        return aux->start;//retorna o ponteiro para onde o aux começa na memoria
         
+}
+
+
+
+void mymemory_free(mymemory_t *mymemory, void *ptr){
+
+
+
+    //os nodos de controle
+    allocation_t *prev = NULL;
+    allocation_t *current = mymemory->head;
+
+
+    while (current){
+
+        if(current->start == ptr){
+
+            if(prev){
+                //no meio da memoria
+                prev->next = current->next;
+            }else{
+                //no inicio da memoria
+                mymemory->head = current->next;
+            }
+
+            free(current);
+            return;
+
+        }    
+
+        prev=current;
+        current= current->next;
+    }
+    
+
 }

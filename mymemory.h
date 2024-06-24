@@ -26,4 +26,4 @@ void mymemory_display(mymemory_t *memory);
 
 void mymemory_release(mymemory_t *memory);
 
-#endif;
+#endif
