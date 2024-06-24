@@ -88,13 +88,13 @@ void mymemory_free(mymemory_t *mymemory, void *ptr){
 
             if(prev){
                 //no meio da memoria
+                
                 prev->next = current->next;
+                
             }else{
                 //no inicio da memoria
                 mymemory->head = current->next;
             }
-
-            free(current);
             return;
 
         }    
@@ -119,6 +119,14 @@ void mymemory_display(mymemory_t *memory){
         printf("Tamanho do bloco de memória: %ld \n", current->size);
         current = current->next;
     }
+
+
+}
+
+
+void mymemory_release(mymemory_t *memory){
+    memory->head->next = NULL;
+    memory->head = NULL;
 
 
 }
