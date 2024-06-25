@@ -1,19 +1,16 @@
 all: tool
 
-tool: main.o mymemory.o mymemory.a
-		gcc -o tool main.o mymemory.o 	-L.
+tool: main.o mymemory.o
+	gcc -o tool main.o mymemory.o -L.
 
-
-mymemory.a: main.o
+mymemory.a: mymemory.o
 	ar rcs mymemory.a mymemory.o
 
-
 main.o: main.c mymemory.h
-	gcc -c mymemory.c
+	gcc -c main.c
 
-mymemory.o: mymemory.c mymemory.o
+mymemory.o: mymemory.c mymemory.h
 	gcc -c mymemory.c
-
 
 clean:
-	rm -f	*.o	tool	*.a
+	rm -f *.o tool *.a
