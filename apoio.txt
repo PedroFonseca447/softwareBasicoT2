@@ -1,0 +1,5 @@
+úmero total de alocacoes: 3 
+Memória total alocada: 88 
+Memória total livre: 9912 
+Tamanho do maior bloco de memória livre: 18446744073709551576 
+Número total de fragmentações externas: 2 
