@@ -139,22 +139,20 @@ void mymemory_stats(mymemory_t *memory){
     
 
 
-    while(current ->next != NULL){
+    while(current    ){
         contador_alocacoes++;
 
         memoria_total_alocada += current->size;
         memoria_total_livre -=  current->size;
 
-        int aux = current->next->size + current->next->start;
-        int aux2 = current->start;
-
-        int aux3 = aux2 - aux;
+        //  int aux = (char*) current->start - (char*)(current->next->start + current->next->size );
         
-        if(aux3>0){
-            numero_de_fragmentos++;
+        
+        // if(aux>0){
+        //     numero_de_fragmentos++;
 
-            maior_bloco_livre = aux3;
-        }
+        //      maior_bloco_livre = aux;
+        //  }
 
         
         current= current->next;

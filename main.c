@@ -26,11 +26,11 @@ int main()
 
     mymemory_display(m);
 
-    //mymemory_release(m);
+   //mymemory_release(m);
 
    mymemory_stats(m);
 
-   // mymemory_free(m, str);
+  // mymemory_display(m);
 
     return 0;
 }
