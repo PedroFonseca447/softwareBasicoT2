@@ -1,7 +1,31 @@
-mymemory.c: In function ‘mymemory_stats’:
-mymemory.c:148:19: warning: initialization of ‘int’ from ‘void *’ makes integer from pointer without a cast [-Wint-conversion]
-  148 |         int aux = current->next->size + current->next->start;
-      |                   ^~~~~~~
-mymemory.c:149:20: warning: initialization of ‘int’ from ‘void *’ makes integer from pointer without a cast [-Wint-conversion]
-  149 |         int aux2 = current->start;
-      |                    ^~~~~~~
+gcc -c mymemory.c
+make: Dependência circular mymemory.o <- mymemory.o abandonada.
+ar rcs mymemory.a mymemory.o
+gcc -o tool main.o mymemory.o   -L.
+/usr/bin/ld: não foi possível localizar main.o: Arquivo ou diretório inexistente
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:4: tool] Erro 1
+
+ gcc -o linked main.c mymemory.c  -L. 
+
+
+
+all: tool
+
+tool: main.o mymemory.o mymemory.a
+		gcc -o tool main.o mymemory.o 	-L.
+
+
+mymemory.a: main.o
+	ar rcs mymemory.a mymemory.o
+
+
+main.o: main.c mymemory.h
+	gcc -c mymemory.c
+
+mymemory.o: mymemory.c mymemory.o
+	gcc -c mymemory.c
+
+
+clean:
+	rm -f	*.o	tool	*.a

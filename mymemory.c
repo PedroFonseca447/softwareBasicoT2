@@ -108,6 +108,11 @@ void mymemory_free(mymemory_t *mymemory, void *ptr){
 
 void mymemory_display(mymemory_t *memory){
 
+     if(!memory){
+        return;
+    }
+    
+
      //os nodos de controle
    // allocation_t *prev = NULL;
     allocation_t *current = memory->head;
@@ -125,6 +130,9 @@ void mymemory_display(mymemory_t *memory){
 
 void mymemory_stats(mymemory_t *memory){
 
+    if(!memory){
+        return;
+    }
     
     allocation_t *current = memory->head;
 
@@ -139,7 +147,7 @@ void mymemory_stats(mymemory_t *memory){
     
 
 
-    while(current    ){
+    while(current){
         contador_alocacoes++;
 
         memoria_total_alocada += current->size;
