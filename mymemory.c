@@ -88,7 +88,7 @@ void mymemory_free(mymemory_t *mymemory, void *ptr){
 
             if(prev){
                 //no meio da memoria
-                //current->size = 0;
+                
                 prev->next = current->next;
                 
             }else{
@@ -121,53 +121,6 @@ void mymemory_display(mymemory_t *memory){
     }
 
 
-}
-
-
-
-void mymemory_stats(mymemory_t *memory){
-     allocation_t *current = memory->head;
-
-
-    int contador_alocacoes= 0;
-    int memoria_total_alocada= 0;
-    int memoria_total_livre= memory->total_size;
-    int maior_bloco_livre= 0;
-    int numero_de_fragmentacoes=0;
-
-
-    void *aux = memory->pool;
-
-     while(current){
-
-        contador_alocacoes++;
-        memoria_total_alocada += current->size;
-        memoria_total_livre -= current->size;
-
-       int  bloco_livre = (char*) current->start - (char*) aux;
-
-        if(maior_bloco_livre > 0){
-            numero_de_fragmentacoes++;
-
-            if(bloco_livre > maior_bloco_livre){
-
-                maior_bloco_livre = bloco_livre;
-
-            }
-
-        }
-
-
-         current = current->next;
-     }
-
-     printf("contagem de nodos: %d \n", contador_alocacoes);
-     printf("memória alocada: %d \n", memoria_total_alocada);
-     printf("memoria total livre: %d \n", memoria_total_livre);
-     printf("tamanho do maior bloco livre %d \n", maior_bloco_livre);
-     printf("numero de fragmentacoes: %d \n", numero_de_fragmentacoes);
-
-    
 }
 
 
