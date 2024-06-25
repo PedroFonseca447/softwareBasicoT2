@@ -24,7 +24,7 @@ int main()
 
     //memory_cleanup(m);
 
-    //mymemory_display(m);
+    mymemory_display(m);
 
     //mymemory_release(m);
 
