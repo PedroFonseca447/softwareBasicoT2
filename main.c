@@ -28,7 +28,7 @@ int main()
 
     //mymemory_release(m);
 
-    mymemory_stats(m);
+   mymemory_stats(m);
 
    // mymemory_free(m, str);
 

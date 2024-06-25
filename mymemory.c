@@ -123,6 +123,60 @@ void mymemory_display(mymemory_t *memory){
 
 }
 
+void mymemory_stats(mymemory_t *memory){
+
+    allocation_t *current = memory -> head;
+
+
+    size_t contador_alocacoes = 0;
+    size_t memoria_total_alocada = 0;
+    size_t  memoria_total_livre = memory->total_size;
+    size_t maior_bloco_livre=0;
+    size_t numero_de_fragmentos =0;
+
+
+    void *aux = memory->pool;
+
+
+    while(current){
+        contador_alocacoes++;
+
+        memoria_total_alocada += current->size;
+        memoria_total_livre -=  current->size;
+
+
+    size_t bloco_livre = (char*) current->start - (char*)aux;
+
+        if(bloco_livre > 0){
+            numero_de_fragmentos++;
+
+            if(bloco_livre > maior_bloco_livre){
+                maior_bloco_livre = bloco_livre;
+            }
+        }
+
+        aux = (char*) current->start + current->size;
+        current = current->next;
+    }
+
+    size_t ultimo_bloco = (char*)memory->pool + memory->total_size - (char*) aux;
+
+    if(ultimo_bloco > 0 ){
+
+        if(ultimo_bloco > maior_bloco_livre){
+            maior_bloco_livre = ultimo_bloco;
+        }
+    }
+
+
+    printf("Número total de alocacoes: %zu \n", contador_alocacoes);
+    printf("Memória total alocada: %zu \n", memoria_total_alocada);
+    printf("Memória total livre: %zu \n", memoria_total_livre);
+    printf("Tamanho do maior bloco de memória livre: %zu \n", maior_bloco_livre);
+    printf("Número total de fragmentações externas: %zu \n", numero_de_fragmentos);
+    
+}
+
 
 void mymemory_release(mymemory_t *memory){
     memory->head->next = NULL;
