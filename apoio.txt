@@ -1,5 +1,7 @@
-úmero total de alocacoes: 3 
-Memória total alocada: 88 
-Memória total livre: 9912 
-Tamanho do maior bloco de memória livre: 18446744073709551576 
-Número total de fragmentações externas: 2 
+mymemory.c: In function ‘mymemory_stats’:
+mymemory.c:148:19: warning: initialization of ‘int’ from ‘void *’ makes integer from pointer without a cast [-Wint-conversion]
+  148 |         int aux = current->next->size + current->next->start;
+      |                   ^~~~~~~
+mymemory.c:149:20: warning: initialization of ‘int’ from ‘void *’ makes integer from pointer without a cast [-Wint-conversion]
+  149 |         int aux2 = current->start;
+      |                    ^~~~~~~

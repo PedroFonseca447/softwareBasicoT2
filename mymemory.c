@@ -125,7 +125,8 @@ void mymemory_display(mymemory_t *memory){
 
 void mymemory_stats(mymemory_t *memory){
 
-    allocation_t *current = memory -> head;
+    
+    allocation_t *current = memory->head;
 
 
     size_t contador_alocacoes = 0;
@@ -135,39 +136,31 @@ void mymemory_stats(mymemory_t *memory){
     size_t numero_de_fragmentos =0;
 
 
-    void *aux = memory->pool;
+    
 
 
-    while(current){
+    while(current ->next != NULL){
         contador_alocacoes++;
 
         memoria_total_alocada += current->size;
         memoria_total_livre -=  current->size;
 
+        int aux = current->next->size + current->next->start;
+        int aux2 = current->start;
 
-    size_t bloco_livre = (char*) current->start - (char*)aux;
-
-        if(bloco_livre > 0){
+        int aux3 = aux2 - aux;
+        
+        if(aux3>0){
             numero_de_fragmentos++;
 
-            if(bloco_livre > maior_bloco_livre){
-                maior_bloco_livre = bloco_livre;
-            }
+            maior_bloco_livre = aux3;
         }
 
-        aux = (char*) current->start + current->size;
-        current = current->next;
+        
+        current= current->next;
     }
 
-    size_t ultimo_bloco = (char*)memory->pool - (char*) aux;
-
-    if(ultimo_bloco > 0 ){
-        numero_de_fragmentos++;
-        if(ultimo_bloco > maior_bloco_livre){
-            maior_bloco_livre = ultimo_bloco;
-        }
-    }
-
+  
 
     printf("Número total de alocacoes: %zu \n", contador_alocacoes);
     printf("Memória total alocada: %zu \n", memoria_total_alocada);
